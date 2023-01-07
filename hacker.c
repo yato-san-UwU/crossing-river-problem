@@ -8,7 +8,7 @@
 #include <sys/types.h>
 #include <sys/ipc.h>
 #include <stdbool.h>
-#include "bib.h"
+#include "bibi.h"
 
 void barrier(sdata *sd,int semid, int n){ // fct barrier pour faire attendre les differents processus (hacker ou windows)
     sd->compteur=sd->compteur+1;
