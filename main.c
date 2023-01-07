@@ -8,7 +8,7 @@
 #include <sys/types.h>
 #include <sys/ipc.h>
 #include <stdbool.h>
-#include "bib.h"   //gcc -o main main.c bib.c                   // voir le projet des lannes passer H20
+#include "bib.h"
 
 
 int main(){
