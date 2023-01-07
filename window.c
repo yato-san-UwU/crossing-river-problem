@@ -8,7 +8,9 @@
 #include <sys/types.h>
 #include <sys/ipc.h>
 #include <stdbool.h>
-#include "bib.h" 
+#include "bib.h"    
+                    // programme window similaire au hacker 
+                    // difference au niveau des semaphore P() V()
 
 void barrier(sdata *sd,int semid, int n){
     sd->compteur=sd->compteur+1;
@@ -24,10 +26,11 @@ void barrier(sdata *sd,int semid, int n){
 }
 
 int main(){
-
-    key_t key=ftok("/mnt/c/Users/yato/Documents/TP M1/systeme/projet",'c'); // mettre le chemin de linux
-    key_t key2=ftok("/mnt/c/Users/yato/Documents/TP M1/systeme/projet",3); // mettre le chemin de linux
-
+    //------------------------------------------------------------------------------------------------------------
+    // partie memoire partager 
+    //------------------------------------------------------------------------------------------------------------
+    key_t key=ftok("chemin ou ce trouve votre fichier",'c');
+    key_t key2=ftok("chemin ou ce trouve votre fichier",3); 
     int shmid=shmget(key,sizeof(sdata),0); // key2
     if(shmid==-1){
         perror("shmget");
@@ -38,14 +41,15 @@ int main(){
     if(semid==-1){
         perror("semget");
     }
-
+    //------------------------------------------------------------------------------------------------------------
+    // partie memoire partager 
     //------------------------------------------------------------------------------------------------------------
     int y;
     bool isCapitain=false;
     printf("nombre de processus windows qui traverse :");
     scanf("%d",&y);
 
-    for(int R=0;R<y;R++){  //nbr de windows
+    for(int R=0;R<y;R++){  // y nbr de windows
         int pid=fork();
         if(pid==-1){
             perror("erreur de creation");
