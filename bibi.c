@@ -36,7 +36,7 @@ int semcreate(key_t key, int n){  // creation semaphore
     }
     return semid;
 } 
-int semtimedop(int semid, struct sembuf *sops, unsigned nsops,struct timespec *timeout);
+int semtimedop(int semid, struct sembuf *sops, unsigned nsops,struct timespec *timeout); //semtimedop fct utiliser comme P mais avec une limite de temps
 int Ptime(int semid ,int x){
     struct timespec t;
     t.tv_sec = 5;
