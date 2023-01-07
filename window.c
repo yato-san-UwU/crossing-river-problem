@@ -8,7 +8,7 @@
 #include <sys/types.h>
 #include <sys/ipc.h>
 #include <stdbool.h>
-#include "bib.h"    
+#include "bibi.h"    
                     // programme window similaire au hacker 
                     // difference au niveau des semaphore P() V()
 
