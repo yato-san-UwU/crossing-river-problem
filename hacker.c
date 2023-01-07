@@ -10,7 +10,7 @@
 #include <stdbool.h>
 #include "bib.h"
 
-void barrier(sdata *sd,int semid, int n){
+void barrier(sdata *sd,int semid, int n){ // fct barrier pour faire attendre les differents processus (hacker ou windows)
     sd->compteur=sd->compteur+1;
     if((sd->compteur)!=n){
         p(semid,3);
@@ -24,9 +24,11 @@ void barrier(sdata *sd,int semid, int n){
 }
 
 int main(){
-
-    key_t key=ftok("/mnt/c/Users/yato/Documents/TP M1/systeme/projet",'c'); // mettre le chemin de linux
-    key_t key2=ftok("/mnt/c/Users/yato/Documents/TP M1/systeme/projet",3); // mettre le chemin de linux
+    //------------------------------------------------------------------------------------------------------------
+    // partie memoire partager 
+    //------------------------------------------------------------------------------------------------------------
+    key_t key=ftok("chemin ou ce trouve votre fichier",'c'); // mettre le chemin de linux
+    key_t key2=ftok("chemin ou ce trouve votre fichier",3); // mettre le chemin de linux
 
     int shmid=shmget(key,sizeof(sdata),0); // key2
     if(shmid==-1){
@@ -38,14 +40,15 @@ int main(){
     if(semid==-1){
         perror("semget");
     }
-
+    //------------------------------------------------------------------------------------------------------------
+    // partie memoire partager 
     //------------------------------------------------------------------------------------------------------------
     int y;
     bool isCapitain=false;
     printf("nombre de processus hackers qui traverse :");
     scanf("%d",&y);
 
-    for(int R=0;R<y;R++){ // nbr de processus hacker
+    for(int R=0;R<y;R++){ // y nbr de processus hacker
         int pid=fork();
         if(pid==-1){
             perror("erreur de creation");
@@ -73,7 +76,7 @@ int main(){
             }
             else{
                 v(semid,0);     // mutex
-                p(semid,1); // hackerQueue
+                p(semid,1);     // hackerQueue
             }
             
             printf("je suis le hacker N%d pid =%d et j'embarque\n",R+1,getpid()); // fct board
